@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:getx_sample/controler/product_controler.dart';
 import 'package:getx_sample/model/product_model.dart';
 
 class MainScreen extends StatelessWidget {
@@ -8,8 +9,8 @@ class MainScreen extends StatelessWidget {
   // var counter = RxInt(0);
   // var counter = Rx<int>(0);
 
-  Rx<ProductModel> productModel =
-      ProductModel(name: "ali", price: "5", off: "1").obs;
+  ProductControler productControler = Get.put(ProductControler());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,9 +21,12 @@ class MainScreen extends StatelessWidget {
             Obx((() {
               return Column(
                 children: [
-                  Text("product name: ${productModel.value.name}"),
-                  Text("product price: ${productModel.value.price}"),
-                  Text("product off: ${productModel.value.off}"),
+                  Text(
+                      "product name: ${productControler.productModel.value.name}"),
+                  Text(
+                      "product price: ${productControler.productModel.value.price}"),
+                  Text(
+                      "product off: ${productControler.productModel.value.off}"),
                   Text("counter : $counter"),
                 ],
               );
@@ -30,7 +34,7 @@ class MainScreen extends StatelessWidget {
             ElevatedButton(
                 onPressed: () {
                   counter = counter + 1;
-                  productModel.update((value) {
+                  productControler.productModel.update((value) {
                     value!.name = "sajad";
                   });
                 },
