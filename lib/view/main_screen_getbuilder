@@ -1,0 +1,51 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:getx_sample/controler/product_getbuilder_controler.dart';
+import 'package:getx_sample/model/product_model.dart';
+
+class MainScreenGetBuilder extends StatelessWidget {
+  var counter = 0.obs;
+  // RxInt counter = 0.obs;
+  // var counter = RxInt(0);
+  // var counter = Rx<int>(0);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.green,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            GetBuilder<ProductGetbuilderControler>(
+              init: ProductGetbuilderControler()
+                builder: (ProductGetbuilderControler productControler) {
+                  return Column(
+                    children: [
+                      Text(
+                          "product name: ${productControler.productModel.name}"),
+                      Text(
+                          "product price: ${productControler.productModel.price}"),
+                      Text(
+                          "product off: ${productControler.productModel.off}"),
+                      Text("counter : $counter"),
+                    ],
+                  );
+                }),
+            ElevatedButton(
+                onPressed: () {
+                  Get.find<ProductGetbuilderControler> ().setNewProduct();
+                },
+                child: Text("press")),
+            ElevatedButton(
+                onPressed: () {
+                  Get.delete<ProductGetbuilderControler>();
+                },
+                child: Text("delete controler")),
+            ElevatedButton(onPressed: () {}, child: Text("get back"))
+          ],
+        ),
+      ),
+    );
+  }
+}
